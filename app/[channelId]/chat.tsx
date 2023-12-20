@@ -5,15 +5,6 @@ import {useSearchParams} from "next/navigation"
 import {clsx} from "clsx"
 import {ChatEvent, ChzzkChat} from "chzzk"
 
-const colors = [
-    "rgb(219, 74, 63)",
-    "rgb(95, 158, 160)",
-    "rgb(218, 165, 32)",
-    "rgb(0, 255, 127)",
-    "rgb(180, 84, 255)",
-    "rgb(30, 144, 255)"
-]
-
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
@@ -70,19 +61,6 @@ export default function Chat({chatChannelId, accessToken}) {
 
                 return (
                     <div key={chat.id} data-from={chat.nickname}>
-                        <span className="meta" style={{
-                            color: colors[chat.color]
-                        }}>
-                            {chat.badges.map((badge: { name: string, src: string }) => (
-                                <img alt={badge.name} key={badge.name} className="badge" src={badge.src}/>
-                            ))}
-                            <span className="name">
-                                {chat.nickname}
-                            </span>
-                            <span className="colon">
-                                :
-                            </span>
-                        </span>
                         <span className="message">
                                 {match ? (
                                     <Fragment>
