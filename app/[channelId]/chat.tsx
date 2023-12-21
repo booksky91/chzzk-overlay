@@ -9,6 +9,7 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
+    const [chatOrder, setChatOrder] = useState(1); // Move chatOrder outside of the component
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
@@ -20,13 +21,15 @@ export default function Chat({chatChannelId, accessToken}) {
             ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
         const emojis = chat.extras.emojis || {}
         const message = chat.message
+        const order = chatOrder
 
         setChats((prevState) => {
             const newChats = prevState.concat([{
                 id,
                 badges,
                 emojis,
-                message
+                message,
+                order
             }])
 
             if (newChats.length > 50) {
@@ -35,6 +38,8 @@ export default function Chat({chatChannelId, accessToken}) {
 
             return newChats
         })
+
+        setChatOrder((chatOrder) => chatOrder + 1);
     }
 
     useEffect(() => {
@@ -54,7 +59,7 @@ export default function Chat({chatChannelId, accessToken}) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id}>
+                    <div key={chat.id} className={`chat-order-${index + 1}`}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
