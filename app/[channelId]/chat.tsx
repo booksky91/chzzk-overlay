@@ -27,11 +27,6 @@ export default function ChatBox({chatChannelId, accessToken}) {
         const elem = document.createElement("div")
         elem.setAttribute("class", clsx(order % 2 === 0 && "even", order % 2 !== 0 && "odd"))
 
-        const meta = document.createElement("span")
-        meta.className = "meta"
-
-        elem.appendChild(meta)
-
         const msg = document.createElement("span")
         msg.className = "message"
 
