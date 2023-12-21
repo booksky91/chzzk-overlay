@@ -1,54 +1,22 @@
-:root {
-    --font-size: 20px;
+@keyframes intro {
+  from {
+    margin-bottom: -3em;
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: bottom center;
+  }
+  to {
+    margin-bottom: 0;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: bottom center;
+  }
 }
 
-#log > div.deleted {
-    visibility: hidden;
-}
-
-#log .emote_wrap {
-    position: relative;
-    padding: 1px
-}
-
-#log .emote_wrap img.emoticon {
-    height: calc(var(--font-size) * 1.5);
-    vertical-align: middle;
-    margin: -5px 0px 0px;
-}
-
-.badge {
-    margin: -5px 0px -2px;
-}
-
-.colon,
-.name {
-}
-
-#log .meta {
-    padding-right: 6px;
-    position: relative;
-}
-
-.badge {
-    margin-right: 4px;
-    height: 1em
-}
-
-.name {
-    font-weight: 700;
-    margin-left: .0em
-}
-
-.colon,
-.name {
-    height: 24px
-}
-
+#log,
 body,
 html {
-    height: 100%;
-    overflow: hidden
+  overflow: hidden;
 }
 #log {
   position: absolute;
@@ -74,183 +42,62 @@ html {
   background-color: #cbc778dd;
 }
 
+#log > div.deleted {
+  visibility: hidden;
+}
+.meta {
+  position: absolute;
+  top: -0.5em;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.2em;
+  transform: translateX(-50%);
+}
+.message {
+  word-break: break-all;
+  line-height: 1.2em;
+  color: #ffffff;
+  font-family: '$font_face', sans-serif !important;
+}
+.name,
+.colon {
+  display: none;
+}
+.badge {
+  height: 1em;
+  margin: 0;
+  padding: 0;
+}
+#log .emote_wrap {
+  position: relative;
+}
+#log .emote_wrap img.emoticon {
+  height: 1em;
+  margin-left: -0.1em;
+  margin-bottom: -0.1em;
+}
+.emote {
+  display: block !important;
+  width: 6em !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
+body {
+  background-color: $background_color;
+}
+body,
+html {
+  height: 100%;
+}
 #log {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 0 10px 10px;
-    width: 100%;
-    box-sizing: border-box;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.7),
-    -1px 1px 0 rgba(0, 0, 0, 0.7),
-    1px -1px 0 rgba(0, 0, 0, 0.7),
-    1px 1px 0 rgba(0, 0, 0, 0.7),
-    0 0 1px rgba(0, 0, 0, 0.7),
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000,
-    0px 0px 3px #000;
+  font-weight: 600;
+  font-size: $font_sizepx;
 }
-
-body {
-    -webkit-mask-image: -webkit-gradient(linear, left 5%, left top, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
-}
-
-#log > div {
-    padding-bottom: .25em;
-    word-wrap: break-word;
-}
-
-#log.small > div {
-    line-height: 1.5em;
-}
-
-body {
-    background: transparent;
-    color: white;
-    font-size: var(--font-size);
-}
-
-#log > div {
-    font-weight: 600;
-}
-
 span.message > img {
-    height: 1em;
+  height: 1em;
 }
 
-span.message > img.emote {
-    height: auto !important;
-    vertical-align: text-top;
-}
