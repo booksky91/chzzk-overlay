@@ -25,14 +25,10 @@ html {
   width: 100%;
   box-sizing: border-box;
   padding: 100px 10px 10px;
-  text-shadow: -2px 0px 0px rgba(0, 0, 0, 1),
-    -1px 0px 0px rgba(0, 0, 0, 1),
-    2px 0px 0px rgba(0, 0, 0, 1),
-    1px 0px 0px rgba(0, 0, 0, 1),
-    0px -2px 0px rgba(0, 0, 0, 1),
+  text-shadow: -1px 0px 0px rgba(0, 0, 0, 1),
+    1px 0px 2px rgba(0, 0, 0, 1),
     0px -1px 0px rgba(0, 0, 0, 1),
-    0px 2px 2px rgba(0, 0, 0, 1),
-    0px 1px 0px rgba(0, 0, 0, 1);
+    0px 1px 2px rgba(0, 0, 0, 1);
 }
 #log > div {
   position: relative;
@@ -106,7 +102,7 @@ html {
 }
 #log {
   font-weight: 600;
-  font-size: $font_sizepx;
+  font-size: 30px;
 }
 span.message > img {
   height: 1em;
