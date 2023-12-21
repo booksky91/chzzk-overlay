@@ -79,10 +79,11 @@ html {
   animation: intro 0.4s ease-in-out, slow-move 8s ease-in infinite;
 }
 
-#log > div:nth-child(2n) {
+.even {
   background-color: var(--bg1-color);
 }
-#log > div:nth-child(2n-1) {
+
+.odd {
   background-color: var(--bg2-color);
 }
 
