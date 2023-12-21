@@ -2,6 +2,7 @@
     --font-size: 30px;
     --bg1-color: #fff996c0;
     --bg2-color: #ffce7dc0;
+    --font-family: sans-serif;
 }
 
 @keyframes intro {
@@ -105,7 +106,7 @@ html {
   word-break: break-all;
   line-height: 1.2em;
   color: #ffffff;
-  font-family: sans-serif;
+  font-family: var(--font-family);
 }
 .name,
 .colon {
@@ -132,7 +133,7 @@ html {
   margin: 0 auto !important;
 }
 body {
-  background-color: $background_color;
+  background-color: transparent;
 }
 body,
 html {
