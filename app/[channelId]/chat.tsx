@@ -5,15 +5,6 @@ import {useSearchParams} from "next/navigation"
 import {clsx} from "clsx"
 import {ChatEvent, ChzzkChat} from "chzzk"
 
-const colors = [
-    "rgb(219, 74, 63)",
-    "rgb(95, 158, 160)",
-    "rgb(218, 165, 32)",
-    "rgb(0, 255, 127)",
-    "rgb(180, 84, 255)",
-    "rgb(30, 144, 255)"
-]
-
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
@@ -26,9 +17,6 @@ export default function Chat({chatChannelId, accessToken}) {
     function onChat(chat: ChatEvent) {
         const id = `${chat.profile.userIdHash}-${chat.time}`
         const nickname = chat.profile.nickname
-        const color = nickname.split("")
-            .map(c => c.charCodeAt(0))
-            .reduce((a, b) => a + b, 0) % colors.length
         const badges = chat.profile.activityBadges
             ?.filter(badge => badge.activated)
             ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
@@ -39,7 +27,6 @@ export default function Chat({chatChannelId, accessToken}) {
             const newChats = prevState.concat([{
                 id,
                 badges,
-                color,
                 nickname,
                 emojis,
                 message
@@ -71,7 +58,7 @@ export default function Chat({chatChannelId, accessToken}) {
 
         // 이전 채팅의 클래스를 현재 채팅에 적용
         const isEvenChat = index % 2 === 0;
-        const chatClasses = clsx("chat", isEvenChat === lastChatIsEven && isEvenChat && "even", isEvenChat !== lastChatIsEven && !isEvenChat && "odd");
+        const chatClasses = clsx(isEvenChat === lastChatIsEven && isEvenChat && "even", isEvenChat !== lastChatIsEven && !isEvenChat && "odd");
 
         // 이전 채팅의 클래스를 업데이트
         setLastChatIsEven(isEvenChat);
