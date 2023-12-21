@@ -8,11 +8,13 @@ import { ChatEvent, ChzzkChat } from "chzzk"
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({ chatChannelId, accessToken }) {
-    const [chats, setChats] = useState([]);
-    const [isOdd, setIsOdd] = useState(true);
+    const [chats, setChats] = useState([])
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
+
+    // Variable to keep track of the current class (odd or even)
+    const currentClass = useRef("odd")
 
     function onChat(chat: ChatEvent) {
         const id = `${chat.profile.userIdHash}-${chat.time}`
@@ -29,18 +31,20 @@ export default function Chat({ chatChannelId, accessToken }) {
                 badges,
                 nickname,
                 emojis,
-                message
+                message,
+                // Assign the class based on the currentClass variable
+                className: currentClass.current
             }])
+
+            // Toggle the currentClass for the next chat
+            currentClass.current = currentClass.current === "odd" ? "even" : "odd"
 
             if (newChats.length > 50) {
                 newChats.splice(0, newChats.length - 50)
             }
 
             return newChats
-        });
-
-        // Toggle the isOdd state for the next chat
-        setIsOdd(prevIsOdd => !prevIsOdd);
+        })
     }
 
     useEffect(() => {
@@ -56,28 +60,24 @@ export default function Chat({ chatChannelId, accessToken }) {
 
     return (
         <div id="log" className={clsx(small && "small")}>
-            {chats.map((chat, index) => {
-                const match = chat.message.match(emojiRegex);
+            {chats.map(chat => {
+                const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div
-                        key={chat.id}
-                        data-from={chat.nickname}
-                        className={clsx({ odd: isOdd, even: !isOdd })}
-                    >
+                    <div key={chat.id} data-from={chat.nickname} className={chat.className}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
                                     {chat.message.split(emojiRegex).map((part: string, i: number) => {
                                         if (i % 2 == 0) {
-                                            return part;
+                                            return part
                                         } else {
-                                            const src = chat.emojis[part];
+                                            const src = chat.emojis[part]
                                             return (
                                                 <span key={i} className="emote_wrap">
                                                     <img alt={`{:${part}:}`} className="emoticon" src={src} />
                                                 </span>
-                                            );
+                                            )
                                         }
                                     })}
                                 </Fragment>
@@ -86,7 +86,7 @@ export default function Chat({ chatChannelId, accessToken }) {
                             )}
                         </span>
                     </div>
-                );
+                )
             })}
         </div>
     )
