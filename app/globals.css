@@ -1,7 +1,7 @@
 :root {
     --font-size: 25px;
-    --bg1-color: #cba565dd;
-    --bg2-color: #cbc778dd;
+    --bg1-color: #cba565ff;
+    --bg2-color: #cbc778ff;
 }
 
 @keyframes intro {
