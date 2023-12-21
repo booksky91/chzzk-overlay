@@ -105,7 +105,7 @@ html {
   word-break: break-all;
   line-height: 1.2em;
   color: #ffffff;
-  font-family: '$font_face', sans-serif !important;
+  font-family: 'NanumSquare', sans-serif;
 }
 .name,
 .colon {
