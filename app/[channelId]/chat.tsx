@@ -61,7 +61,7 @@ export default function Chat({ chatChannelId, accessToken }) {
         const match = chat.message.match(emojiRegex);
 
         return (
-          <div key={chat.id} className={clsx(`chat-order-${chat.order}`, chat.order % 2 === 0 && "even", chat.order % 2 !== 0 && "odd")}>
+          <div key={chat.id} className={clsx(chat.order % 2 === 0 && "even", chat.order % 2 !== 0 && "odd")}>
             <span className="message">
               {match ? (
                 <Fragment>
