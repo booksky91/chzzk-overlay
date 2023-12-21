@@ -1,3 +1,9 @@
+:root {
+    --font-size: 25px;
+    --bg1-color: #cba565dd;
+    --bg2-color: #cbc778dd;
+}
+
 @keyframes intro {
   from {
     margin-bottom: -3em;
@@ -43,10 +49,10 @@ html {
 }
 
 #log > div:nth-child(2n) {
-  background-color: #cba565bb;
+  background-color: var(--bg1-color);
 }
 #log > div:nth-child(2n-1) {
-  background-color: #cbc778bb;
+  background-color: var(--bg2-color);
 }
 
 #log > div.deleted {
@@ -94,15 +100,15 @@ html {
   margin: 0 auto !important;
 }
 body {
-  background-color: $background_color;
+  background-color: transparent;
 }
 body,
 html {
   height: 100%;
 }
 #log {
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 800;
+  font-size: var(--font-size);
 }
 span.message > img {
   height: 1em;
