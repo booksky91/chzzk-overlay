@@ -9,14 +9,12 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
-    var [classOrder, setClassOrder] = useState(1) // Added state for class order
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
 
     function onChat(chat: ChatEvent) {
         const id = `${chat.profile.userIdHash}-${chat.time}`
-        const nickname = chat.profile.nickname
         const badges = chat.profile.activityBadges
             ?.filter(badge => badge.activated)
             ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
@@ -27,17 +25,13 @@ export default function Chat({chatChannelId, accessToken}) {
             const newChats = prevState.concat([{
                 id,
                 badges,
-                nickname,
                 emojis,
-                message,
-                classOrder // Assign class order to each chat
+                message
             }])
 
             if (newChats.length > 50) {
                 newChats.splice(0, newChats.length - 50)
             }
-
-            setClassOrder(classOrder + 1); // Increment class order
 
             return newChats
         })
@@ -57,10 +51,10 @@ export default function Chat({chatChannelId, accessToken}) {
     return (
         <div id="log" className={clsx(small && "small")}>
             {chats.map(chat => {
-                const match = chat.message.match(emojiRegex);
+                const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname} className={`chat-order-${chat.classOrder}`}>
+                    <div key={chat.id}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
