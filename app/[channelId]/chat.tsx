@@ -7,42 +7,38 @@ import {ChatEvent, ChzzkChat} from "chzzk"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
-export default function Chat({ chatChannelId, accessToken }) {
-    const [chats, setChats] = useState([]);
-    const [chatCount, setChatCount] = useState(0);
+export default function Chat({chatChannelId, accessToken}) {
+    const [chats, setChats] = useState([])
 
-    const searchParams = useSearchParams();
-    const small = searchParams.has("small");
+    const searchParams = useSearchParams()
+    const small = searchParams.has("small")
 
     function onChat(chat: ChatEvent) {
-        const id = `${chat.profile.userIdHash}-${chat.time}`;
-        const nickname = chat.profile.nickname;
+        const id = `${chat.profile.userIdHash}-${chat.time}`
+        const nickname = chat.profile.nickname
         const badges = chat.profile.activityBadges
-            ?.filter((badge) => badge.activated)
-            ?.map((badge) => ({ name: badge.title, src: badge.imageUrl })) || [];
-        const emojis = chat.extras.emojis || {};
-        const message = chat.message;
+            ?.filter(badge => badge.activated)
+            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
+        const emojis = chat.extras.emojis || {}
+        const message = chat.message
 
         setChats((prevState) => {
-            const newChats = prevState.concat([
-                {
-                    id,
-                    badges,
-                    nickname,
-                    emojis,
-                    message,
-                    class: chatCount % 2 === 0 ? "even" : "odd", // 짝수면 even, 홀수면 odd 클래스 할당
-                },
-            ]);
+            const order = prevState.length + 1; // Order of the new chat
+            const newChats = prevState.concat([{
+                id,
+                badges,
+                nickname,
+                emojis,
+                message,
+                order, // Add order information
+            }])
 
             if (newChats.length > 50) {
-                newChats.splice(0, newChats.length - 50);
+                newChats.splice(0, newChats.length - 50)
             }
 
-            setChatCount((prevCount) => prevCount + 1); // 채팅 수 증가
-
-            return newChats;
-        });
+            return newChats
+        })
     }
 
     useEffect(() => {
@@ -62,12 +58,12 @@ export default function Chat({ chatChannelId, accessToken }) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname} className={chat.class}>
+                    <div key={chat.id} data-from={chat.nickname} className={`chat ${chat.order}`}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
                                     {chat.message.split(emojiRegex).map((part: string, i: number) => {
-                                        if (i % 2 == 0) {
+                                        if (i % 2 === 0) {
                                             return part
                                         } else {
                                             const src = chat.emojis[part]
