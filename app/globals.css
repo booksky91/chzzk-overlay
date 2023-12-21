@@ -45,7 +45,7 @@
 }
 
 body {
-	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 2em )
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 3em )
 }
 
 #log,
