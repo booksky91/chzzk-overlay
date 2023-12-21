@@ -9,37 +9,32 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g;
 
 export default function Chat({ chatChannelId, accessToken }) {
   const [chats, setChats] = useState([]);
-  const [chatOrder, setChatOrder] = useState(1); // Move chatOrder outside of the component
-
   const searchParams = useSearchParams();
   const small = searchParams.has("small");
 
   function onChat(chat: ChatEvent) {
-    const id = `${chat.profile.userIdHash}-${chat.time}`;
-    const nickname = chat.profile.nickname;
-    const badges = chat.profile.activityBadges
-      ?.filter((badge) => badge.activated)
-      ?.map((badge) => ({ name: badge.title, src: badge.imageUrl })) || [];
-    const emojis = chat.extras.emojis || {};
-    const message = chat.message;
+    setChats((prevChats) => {
+      const id = `${chat.profile.userIdHash}-${chat.time}`;
+      const nickname = chat.profile.nickname;
+      const badges = chat.profile.activityBadges
+        ?.filter((badge) => badge.activated)
+        ?.map((badge) => ({ name: badge.title, src: badge.imageUrl })) || [];
+      const emojis = chat.extras.emojis || {};
+      const message = chat.message;
 
-    setChats((prevState) => {
-      const newChats = prevState.concat([
+      const newChats = prevChats.concat([
         {
           id,
           badges,
           nickname,
           emojis,
           message,
-          order: chatOrder, // Assign chat order to the chat
         },
       ]);
 
       if (newChats.length > 50) {
         newChats.splice(0, newChats.length - 50);
       }
-
-      setChatOrder((prevOrder) => prevOrder + 1); // Increment chat order
 
       return newChats;
     });
