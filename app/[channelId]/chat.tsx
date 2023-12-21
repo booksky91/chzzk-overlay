@@ -65,34 +65,38 @@ export default function Chat({chatChannelId, accessToken}) {
 
     return (
         <div id="log" className={clsx(small && "small")}>
-            {chats.map(chat => {
-                const match = chat.message.match(emojiRegex)
+            {chats.map((chat, index) => {
+                const match = chat.message.match(emojiRegex);
+
+                // Determine if the chat is even or odd
+                const isEvenChat = index % 2 === 0;
+                const chatClasses = clsx("chat", isEvenChat && "even", !isEvenChat && "odd");
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname}>
+                    <div key={chat.id} className={chatClasses} data-from={chat.nickname}>
                         <span className="message">
-                                {match ? (
-                                    <Fragment>
-                                        {chat.message.split(emojiRegex).map((part: string, i: number) => {
-                                            if (i % 2 == 0) {
-                                                return part
-                                            } else {
-                                                const src = chat.emojis[part]
-                                                return (
-                                                    <span key={i} className="emote_wrap">
-                                                        <img alt={`{:${part}:}`} className="emoticon" src={src}/>
-                                                    </span>
-                                                )
-                                            }
-                                        })}
-                                    </Fragment>
-                                ) : (
-                                    chat.message
-                                )}
-                            </span>
+                            {match ? (
+                                <Fragment>
+                                    {chat.message.split(emojiRegex).map((part, i) => {
+                                        if (i % 2 === 0) {
+                                            return part;
+                                        } else {
+                                            const src = chat.emojis[part];
+                                            return (
+                                                <span key={i} className="emote_wrap">
+                                                    <img alt={`{:${part}:}`} className="emoticon" src={src}/>
+                                                </span>
+                                            );
+                                        }
+                                    })}
+                                </Fragment>
+                            ) : (
+                                chat.message
+                            )}
+                        </span>
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }
