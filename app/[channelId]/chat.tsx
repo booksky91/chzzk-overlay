@@ -70,7 +70,7 @@ export default function Chat({chatChannelId, accessToken}) {
 
                 // Determine if the chat is even or odd
                 const isEvenChat = index % 2 === 0;
-                const chatClasses = clsx("chat", isEvenChat && "even", !isEvenChat && "odd");
+                const chatClasses = clsx(isEvenChat && "even", !isEvenChat && "odd");
 
                 return (
                     <div key={chat.id} className={chatClasses} data-from={chat.nickname}>
