@@ -9,6 +9,7 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
+    const [currentClass, setCurrentClass] = useState("odd") // 초기 클래스를 "odd"로 설정
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
@@ -28,12 +29,16 @@ export default function Chat({chatChannelId, accessToken}) {
                 badges,
                 nickname,
                 emojis,
-                message
+                message,
+                class: currentClass // 현재 클래스를 추가
             }])
 
             if (newChats.length > 50) {
                 newChats.splice(0, newChats.length - 50)
             }
+
+            // 다음 클래스를 결정
+            setCurrentClass(prevClass => (prevClass === "odd" ? "even" : "odd"))
 
             return newChats
         })
@@ -56,7 +61,7 @@ export default function Chat({chatChannelId, accessToken}) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname}>
+                    <div key={chat.id} data-from={chat.nickname} className={chat.class}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
