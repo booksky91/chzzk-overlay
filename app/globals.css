@@ -1,7 +1,7 @@
 :root {
     --font-size: 25px;
-    --bg1-color: #cba565ff;
-    --bg2-color: #cbc778ff;
+    --bg1-color: #fff996dd;
+    --bg2-color: #ffce7ddd;
 }
 
 @keyframes intro {
@@ -41,7 +41,7 @@ html {
     var(--shadow) 1px 1px 1px,
     var(--shadow) 1px 0 1px,
     var(--shadow) 0 1px 1px,
-    var(--shadow) 1px 1px 1px;
+    var(--shadow) 1px 1px 5px;
 }
 #log > div {
   position: relative;
