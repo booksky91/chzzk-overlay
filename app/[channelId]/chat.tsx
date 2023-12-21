@@ -1,27 +1,24 @@
 "use client"
 
-import { Fragment, useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
-import { clsx } from "clsx"
-import { ChatEvent, ChzzkChat } from "chzzk"
+import {Fragment, useEffect, useState} from "react"
+import {useSearchParams} from "next/navigation"
+import {clsx} from "clsx"
+import {ChatEvent, ChzzkChat} from "chzzk"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
-export default function Chat({ chatChannelId, accessToken }) {
+export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
-
-    // Variable to keep track of the current class (odd or even)
-    const currentClass = useRef("odd")
 
     function onChat(chat: ChatEvent) {
         const id = `${chat.profile.userIdHash}-${chat.time}`
         const nickname = chat.profile.nickname
         const badges = chat.profile.activityBadges
             ?.filter(badge => badge.activated)
-            ?.map(badge => ({ name: badge.title, src: badge.imageUrl })) || []
+            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
         const emojis = chat.extras.emojis || {}
         const message = chat.message
 
@@ -31,13 +28,8 @@ export default function Chat({ chatChannelId, accessToken }) {
                 badges,
                 nickname,
                 emojis,
-                message,
-                // Assign the class based on the currentClass variable
-                className: currentClass.current
+                message
             }])
-
-            // Toggle the currentClass for the next chat
-            currentClass.current = currentClass.current === "odd" ? "even" : "odd"
 
             if (newChats.length > 50) {
                 newChats.splice(0, newChats.length - 50)
@@ -64,7 +56,7 @@ export default function Chat({ chatChannelId, accessToken }) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname} className={chat.className}>
+                    <div key={chat.id} data-from={chat.nickname}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
@@ -75,7 +67,7 @@ export default function Chat({ chatChannelId, accessToken }) {
                                             const src = chat.emojis[part]
                                             return (
                                                 <span key={i} className="emote_wrap">
-                                                    <img alt={`{:${part}:}`} className="emoticon" src={src} />
+                                                    <img alt={`{:${part}:}`} className="emoticon" src={src}/>
                                                 </span>
                                             )
                                         }
