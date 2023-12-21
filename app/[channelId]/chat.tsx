@@ -1,15 +1,15 @@
 "use client"
 
-import {Fragment, useEffect, useState} from "react"
-import {useSearchParams} from "next/navigation"
-import {clsx} from "clsx"
-import {ChatEvent, ChzzkChat} from "chzzk"
+import { Fragment, useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { clsx } from "clsx"
+import { ChatEvent, ChzzkChat } from "chzzk"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
-export default function Chat({chatChannelId, accessToken}) {
-    const [chats, setChats] = useState([])
-    const [currentClass, setCurrentClass] = useState("odd")
+export default function Chat({ chatChannelId, accessToken }) {
+    const [chats, setChats] = useState([]);
+    const [isOdd, setIsOdd] = useState(true);
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
@@ -19,7 +19,7 @@ export default function Chat({chatChannelId, accessToken}) {
         const nickname = chat.profile.nickname
         const badges = chat.profile.activityBadges
             ?.filter(badge => badge.activated)
-            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
+            ?.map(badge => ({ name: badge.title, src: badge.imageUrl })) || []
         const emojis = chat.extras.emojis || {}
         const message = chat.message
 
@@ -29,18 +29,18 @@ export default function Chat({chatChannelId, accessToken}) {
                 badges,
                 nickname,
                 emojis,
-                message,
-                className: currentClass
+                message
             }])
 
             if (newChats.length > 50) {
                 newChats.splice(0, newChats.length - 50)
             }
 
-            setCurrentClass((prevClass) => (prevClass === "odd" ? "even" : "odd"))
-
             return newChats
-        })
+        });
+
+        // Toggle the isOdd state for the next chat
+        setIsOdd(prevIsOdd => !prevIsOdd);
     }
 
     useEffect(() => {
@@ -56,24 +56,28 @@ export default function Chat({chatChannelId, accessToken}) {
 
     return (
         <div id="log" className={clsx(small && "small")}>
-            {chats.map(chat => {
-                const match = chat.message.match(emojiRegex)
+            {chats.map((chat, index) => {
+                const match = chat.message.match(emojiRegex);
 
                 return (
-                    <div key={chat.id} data-from={chat.nickname} className={chat.className}>
+                    <div
+                        key={chat.id}
+                        data-from={chat.nickname}
+                        className={clsx({ odd: isOdd, even: !isOdd })}
+                    >
                         <span className="message">
                             {match ? (
                                 <Fragment>
                                     {chat.message.split(emojiRegex).map((part: string, i: number) => {
                                         if (i % 2 == 0) {
-                                            return part
+                                            return part;
                                         } else {
-                                            const src = chat.emojis[part]
+                                            const src = chat.emojis[part];
                                             return (
                                                 <span key={i} className="emote_wrap">
-                                                    <img alt={`{:${part}:}`} className="emoticon" src={src}/>
+                                                    <img alt={`{:${part}:}`} className="emoticon" src={src} />
                                                 </span>
-                                            )
+                                            );
                                         }
                                     })}
                                 </Fragment>
@@ -82,7 +86,7 @@ export default function Chat({chatChannelId, accessToken}) {
                             )}
                         </span>
                     </div>
-                )
+                );
             })}
         </div>
     )
