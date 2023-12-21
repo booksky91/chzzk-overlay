@@ -9,7 +9,7 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
-    const [classOrder, setClassOrder] = useState(1) // Added state for class order
+    var [classOrder, setClassOrder] = useState(1) // Added state for class order
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
@@ -37,7 +37,7 @@ export default function Chat({chatChannelId, accessToken}) {
                 newChats.splice(0, newChats.length - 50)
             }
 
-            setClassOrder((prevOrder) => prevOrder + 1); // Increment class order
+            setClassOrder(classOrder + 1); // Increment class order
 
             return newChats
         })
