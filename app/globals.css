@@ -1,5 +1,5 @@
 :root {
-    --font-size: 25px;
+    --font-size: 35px;
     --bg1-color: #fff996dd;
     --bg2-color: #ffce7ddd;
 }
@@ -31,7 +31,7 @@ html {
   left: 0;
   width: 100%;
   box-sizing: border-box;
-  padding: 100px 10px 10px;
+  padding: 100px 30px 10px;
   text-shadow: var(--shadow) -1px -1px 1px,
     var(--shadow) -1px 0 1px,
     var(--shadow) 0 -1px 1px,
@@ -46,7 +46,7 @@ html {
 #log > div {
   position: relative;
   width: max-content;
-  max-width: 80%;
+  max-width: 90%;
   min-width: 0em;
   border-radius: 0.6em;
   padding: 0.6em 0.6em 0.6em;
