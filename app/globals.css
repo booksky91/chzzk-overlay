@@ -50,6 +50,29 @@ html {
     height: 100%;
     overflow: hidden
 }
+#log {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 100px 15px 10px;
+}
+#log > div {
+  position: relative;
+  border-radius: 0.6em;
+  padding: 0.8em 1.5em 0.6em;
+  margin-top: 0.6em;
+  text-align: left;
+  animation: intro 0.4s ease-in-out, fadeOutUp 1s ease $message_hide_delays forwards;
+}
+
+#log > div:nth-child(2n) {
+  background-color: #cba565dd;
+}
+#log > div:nth-child(2n-1) {
+  background-color: #cbc778dd;
+}
 
 #log {
     position: absolute;
