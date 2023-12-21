@@ -8,19 +8,20 @@ import {ChatEvent, ChzzkChat} from "chzzk"
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
-    const [chats, setChats] = useState([])
+    const [chats, setChats] = useState([]);
+    const [chatClasses, setChatClasses] = useState([]);
 
-    const searchParams = useSearchParams()
-    const small = searchParams.has("small")
+    const searchParams = useSearchParams();
+    const small = searchParams.has("small");
 
     function onChat(chat: ChatEvent) {
-        const id = `${chat.profile.userIdHash}-${chat.time}`
-        const nickname = chat.profile.nickname
+        const id = `${chat.profile.userIdHash}-${chat.time}`;
+        const nickname = chat.profile.nickname;
         const badges = chat.profile.activityBadges
             ?.filter(badge => badge.activated)
-            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
-        const emojis = chat.extras.emojis || {}
-        const message = chat.message
+            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || [];
+        const emojis = chat.extras.emojis || {};
+        const message = chat.message;
 
         setChats((prevState) => {
             const newChats = prevState.concat([{
@@ -29,38 +30,40 @@ export default function Chat({chatChannelId, accessToken}) {
                 nickname,
                 emojis,
                 message
-            }])
+            }]);
 
             if (newChats.length > 50) {
-                newChats.splice(0, newChats.length - 50)
+                newChats.splice(0, newChats.length - 50);
             }
 
-            return newChats
-        })
+            return newChats;
+        });
+
+        setChatClasses((prevState) => {
+            const isEvenChat = (prevState.length % 2 === 0);
+            return prevState.concat([isEvenChat ? "even" : "odd"]);
+        });
     }
 
     useEffect(() => {
-        const chzzkChat = ChzzkChat.fromAccessToken(chatChannelId, accessToken)
-        chzzkChat.on("chat", onChat.bind(this))
-        chzzkChat.on("connect", () => chzzkChat.requestRecentChat(50))
-        chzzkChat.connect()
-    }, [])
+        const chzzkChat = ChzzkChat.fromAccessToken(chatChannelId, accessToken);
+        chzzkChat.on("chat", onChat.bind(this));
+        chzzkChat.on("connect", () => chzzkChat.requestRecentChat(50));
+        chzzkChat.connect();
+    }, []);
 
     useEffect(() => {
-        window.scrollTo(0, document.body.scrollHeight)
-    }, [chats])
+        window.scrollTo(0, document.body.scrollHeight);
+    }, [chats]);
 
     return (
         <div id="log" className={clsx(small && "small")}>
             {chats.map((chat, index) => {
                 const match = chat.message.match(emojiRegex);
-
-                // Determine if the chat is even or odd
-                const isEvenChat = index % 2 === 0;
-                const chatClasses = clsx(isEvenChat && "even", !isEvenChat && "odd");
+                const chatClass = chatClasses[index];
 
                 return (
-                    <div key={chat.id} className={chatClasses} data-from={chat.nickname}>
+                    <div key={chat.id} className={clsx(chatClass)} data-from={chat.nickname}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
