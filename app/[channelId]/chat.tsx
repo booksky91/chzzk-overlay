@@ -9,7 +9,7 @@ const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 export default function Chat({chatChannelId, accessToken}) {
     const [chats, setChats] = useState([])
-    const [chatOrder, setChatOrder] = useState(1); // Move chatOrder outside of the component
+    var chatOrder = 1 // Move chatOrder outside of the component
 
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
@@ -39,7 +39,7 @@ export default function Chat({chatChannelId, accessToken}) {
             return newChats
         })
 
-        setChatOrder((chatOrder) => chatOrder + 1);
+        chatOrder = chatOrder+1
     }
 
     useEffect(() => {
@@ -59,7 +59,7 @@ export default function Chat({chatChannelId, accessToken}) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} className={`chat-order-${chat.order}`}>
+                    <div key={chat.id} className={`chat-order-${index + 1}`}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
