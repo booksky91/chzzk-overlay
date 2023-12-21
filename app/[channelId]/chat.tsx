@@ -7,41 +7,42 @@ import {ChatEvent, ChzzkChat} from "chzzk"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
-export default function Chat({chatChannelId, accessToken}) {
-    const [chats, setChats] = useState([])
-    const [currentClass, setCurrentClass] = useState("odd") // 초기 클래스를 "odd"로 설정
+export default function Chat({ chatChannelId, accessToken }) {
+    const [chats, setChats] = useState([]);
+    const [chatCount, setChatCount] = useState(0);
 
-    const searchParams = useSearchParams()
-    const small = searchParams.has("small")
+    const searchParams = useSearchParams();
+    const small = searchParams.has("small");
 
     function onChat(chat: ChatEvent) {
-        const id = `${chat.profile.userIdHash}-${chat.time}`
-        const nickname = chat.profile.nickname
+        const id = `${chat.profile.userIdHash}-${chat.time}`;
+        const nickname = chat.profile.nickname;
         const badges = chat.profile.activityBadges
-            ?.filter(badge => badge.activated)
-            ?.map(badge => ({name: badge.title, src: badge.imageUrl})) || []
-        const emojis = chat.extras.emojis || {}
-        const message = chat.message
+            ?.filter((badge) => badge.activated)
+            ?.map((badge) => ({ name: badge.title, src: badge.imageUrl })) || [];
+        const emojis = chat.extras.emojis || {};
+        const message = chat.message;
 
         setChats((prevState) => {
-            const newChats = prevState.concat([{
-                id,
-                badges,
-                nickname,
-                emojis,
-                message,
-                class: currentClass // 현재 클래스를 추가
-            }])
+            const newChats = prevState.concat([
+                {
+                    id,
+                    badges,
+                    nickname,
+                    emojis,
+                    message,
+                    class: chatCount % 2 === 0 ? "even" : "odd", // 짝수면 even, 홀수면 odd 클래스 할당
+                },
+            ]);
 
             if (newChats.length > 50) {
-                newChats.splice(0, newChats.length - 50)
+                newChats.splice(0, newChats.length - 50);
             }
 
-            // 다음 클래스를 결정
-            setCurrentClass(prevClass => (prevClass === "odd" ? "even" : "odd"))
+            setChatCount((prevCount) => prevCount + 1); // 채팅 수 증가
 
-            return newChats
-        })
+            return newChats;
+        });
     }
 
     useEffect(() => {
