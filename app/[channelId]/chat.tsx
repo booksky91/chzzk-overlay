@@ -59,7 +59,7 @@ export default function Chat({chatChannelId, accessToken}) {
                 const match = chat.message.match(emojiRegex)
 
                 return (
-                    <div key={chat.id} className={`chat-order-${index + 1}`}>
+                    <div key={chat.id} className={`chat-order-${chat.order}`}>
                         <span className="message">
                             {match ? (
                                 <Fragment>
