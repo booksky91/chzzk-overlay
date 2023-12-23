@@ -9,6 +9,7 @@ import ChatRow, {Chat} from "./ChatRow"
 export default function ChatBox({chatChannelId, accessToken}) {
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
+    var chatOrder = 1
 
     const isClosingWebSocket = useRef<boolean>(false)
     const lastSetTimestampRef = useRef<number>(0)
@@ -20,12 +21,16 @@ export default function ChatBox({chatChannelId, accessToken}) {
         const extras = JSON.parse(raw['extras'])
         const emojis = extras?.emojis || {}
         const message = raw['msg'] || raw['content']
+        const order = chatOrder
         return {
             uuid: crypto.randomUUID(),
             emojis,
+            order,
             message
         }
     }, [chatChannelId])
+
+    chatOrder = chatOrder + 1
 
     const connectChzzk = useCallback(() => {
         const ws = new WebSocket("wss://kr-ss1.chat.naver.com/chat")
