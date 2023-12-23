@@ -4,7 +4,7 @@ import {useCallback, useEffect, useRef, useState} from "react"
 import {useSearchParams} from "next/navigation"
 import {clsx} from "clsx"
 import {ChatCmd} from "chzzk"
-import ChatRow, {Chat, nicknameColors} from "./ChatRow"
+import ChatRow, {Chat} from "./ChatRow"
 
 export default function ChatBox({chatChannelId, accessToken}) {
     const searchParams = useSearchParams()
@@ -27,9 +27,7 @@ export default function ChatBox({chatChannelId, accessToken}) {
                 ?.filter(badge => badge.activated)
                 ?.map(badge => ({name: badge.title, src: badge.imageUrl})) ?? []
         )
-        const color = profile.title?.color ?? (profile.userIdHash + chatChannelId).split("")
-            .map(c => c.charCodeAt(0))
-            .reduce((a, b) => a + b, 0) % nicknameColors.length
+        const color = false
         const emojis = extras?.emojis || {}
         const message = raw['msg'] || raw['content']
         return {
