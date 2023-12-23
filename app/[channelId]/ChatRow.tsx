@@ -7,9 +7,6 @@ export interface Badge {
 
 export interface Chat {
     uuid: string;
-    nickname: string;
-    badges: Badge[];
-    color: number | string;
     emojis: Record<string, string>;
     message: string;
 }
@@ -17,11 +14,11 @@ export interface Chat {
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 function ChatRow(props: Chat) {
-    const {nickname, badges, color, emojis, message} = props
+    const {emojis, message} = props
     const match = message.match(emojiRegex)
 
     return (
-        <div data-from={nickname}>
+        <div>
             <span className="message">
                 {match ? message.split(emojiRegex).map((part, i) => (
                     <Fragment key={i}>
