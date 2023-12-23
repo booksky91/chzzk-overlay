@@ -6,9 +6,10 @@ import {clsx} from "clsx"
 import {ChatCmd} from "chzzk"
 import ChatRow, {Chat} from "./ChatRow"
 
-export default function ChatBox({chatChannelId, accessToken, chatOrder}) {
+export default function ChatBox({chatChannelId, accessToken}) {
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
+    var chatOrder = 1
 
     const isClosingWebSocket = useRef<boolean>(false)
     const lastSetTimestampRef = useRef<number>(0)
