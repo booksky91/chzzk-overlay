@@ -18,11 +18,6 @@ export default function ChatBox({chatChannelId, accessToken}) {
     const convertChat = useCallback((raw): Chat => {
         const profile = JSON.parse(raw['profile'])
         const extras = JSON.parse(raw['extras'])
-        const badges = (badge ? [badge] : []).concat(
-            profile.activityBadges
-                ?.filter(badge => badge.activated)
-                ?.map(badge => ({name: badge.title, src: badge.imageUrl})) ?? []
-        )
         const emojis = extras?.emojis || {}
         const message = raw['msg'] || raw['content']
         return {
