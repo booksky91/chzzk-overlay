@@ -5,7 +5,6 @@ export const dynamic = "force-dynamic"
 
 export default async function ChatPage({params: {channelId}}) {
     const {signal} = new AbortController()
-    var chatOrder = 1
 
     const chatChannelId = await fetch(
         `https://api.chzzk.naver.com/polling/v1/channels/${channelId}/live-status`,
@@ -20,7 +19,6 @@ export default async function ChatPage({params: {channelId}}) {
     ).then(r => r.json()).then(data => data['content']['accessToken'])
 
     return (
-        <ChatBox chatChannelId={chatChannelId} accessToken={accessToken} chatOrder={chatOrder}/>
+        <ChatBox chatChannelId={chatChannelId} accessToken={accessToken}/>
     )
-    chatOrder = chatOrder + 1
 }
