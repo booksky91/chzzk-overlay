@@ -8,17 +8,18 @@ export interface Badge {
 export interface Chat {
     uuid: string;
     emojis: Record<string, string>;
+    order: number;
     message: string;
 }
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 function ChatRow(props: Chat) {
-    const {emojis, message} = props
+    const {emojis, order, message} = props
     const match = message.match(emojiRegex)
 
     return (
-        <div>
+        <div class={clsx(order % 2 === 0 && "even", order % 2 !== 0 && "odd")}>
             <span className="message">
                 {match ? message.split(emojiRegex).map((part, i) => (
                     <Fragment key={i}>
