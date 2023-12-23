@@ -2,6 +2,7 @@
     --font-size: 30px;
     --bg1-color: #fff996c0;
     --bg2-color: #ffce7dc0;
+    --chat-hide-delay: 10s;
     --font-family: sans-serif;
 }
 
@@ -92,7 +93,7 @@ html {
   padding: 0.6em 0.6em 0.6em;
   margin-top: 0.3em;
   text-align: left;
-  animation: intro 0.4s ease-in-out, slow-move 8s ease-in infinite, fadeOutUp 1s ease 5s forwards;
+  animation: intro 0.4s ease-in-out, slow-move 8s ease-in infinite, fadeOutUp 1s ease var(--chat-hide-delay) forwards;
 }
 
 .even {
