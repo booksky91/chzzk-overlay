@@ -121,6 +121,8 @@ export default function ChatBox({chatChannelId, accessToken}) {
                         .filter(chat => !((chat['msgStatusType'] || chat['messageStatusType']) == "HIDDEN"))
                         .map(convertChat)
 
+                    chatOrder = chatOrder + 1
+
                     if (isRecent) {
                         pendingChatListRef.current = []
                         setChatList(chats)
