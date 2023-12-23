@@ -6,10 +6,9 @@ import {clsx} from "clsx"
 import {ChatCmd} from "chzzk"
 import ChatRow, {Chat} from "./ChatRow"
 
-export default function ChatBox({chatChannelId, accessToken}) {
+export default function ChatBox({chatChannelId, accessToken, chatOrder}) {
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
-    var chatOrder = 1
 
     const isClosingWebSocket = useRef<boolean>(false)
     const lastSetTimestampRef = useRef<number>(0)
@@ -29,8 +28,6 @@ export default function ChatBox({chatChannelId, accessToken}) {
             message
         }
     }, [chatChannelId])
-
-    chatOrder = chatOrder + 1
 
     const connectChzzk = useCallback(() => {
         const ws = new WebSocket("wss://kr-ss1.chat.naver.com/chat")
