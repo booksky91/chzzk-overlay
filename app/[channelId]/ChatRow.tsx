@@ -20,7 +20,7 @@ function ChatRow(props: Chat) {
     const match = message.match(emojiRegex)
 
     return (
-        <div className="{order}">
+        <div className={order.toString()}>
             <span className="message">
                 {match ? message.split(emojiRegex).map((part, i) => (
                     <Fragment key={i}>
