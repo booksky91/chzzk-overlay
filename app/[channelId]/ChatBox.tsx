@@ -22,6 +22,7 @@ export default function ChatBox({chatChannelId, accessToken}) {
         const emojis = extras?.emojis || {}
         const message = raw['msg'] || raw['content']
         const order = chatOrder
+        chatOrder = chatOrder + 1
         return {
             uuid: crypto.randomUUID(),
             emojis,
@@ -120,8 +121,6 @@ export default function ChatBox({chatChannelId, accessToken}) {
                         .filter(chat => (chat['msgTypeCode'] || chat['messageTypeCode']) == 1)
                         .filter(chat => !((chat['msgStatusType'] || chat['messageStatusType']) == "HIDDEN"))
                         .map(convertChat)
-
-                    chatOrder = chatOrder + 1
 
                     if (isRecent) {
                         pendingChatListRef.current = []
