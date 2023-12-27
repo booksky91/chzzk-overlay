@@ -9,9 +9,8 @@ import ChatRow from "./ChatRow"
 export default function ChatBox({chatChannelId, accessToken}) {
     const searchParams = useSearchParams()
     const small = searchParams.has("small")
-    var chatOrder = 1
+    var chatOrder = [1]
     const chatList = useChatList(chatChannelId, accessToken, chatOrder)
-    chatOrder = chatOrder + 1
 
     const handleObsStreamingStarted = useCallback(() => {
         window.location.reload()
