@@ -10,13 +10,6 @@ function ChatRow(props: Chat) {
 
     return (
         <div data-from={nickname}>
-            <span className="meta" style={{ color: typeof color == "number" ? nicknameColors[color] : color }}>
-                {badges.map((src, i) => (
-                    <img key={i} className="badge" alt="" src={src} />
-                ))}
-                <span className="name">{nickname}</span>
-                <span className="colon">:</span>
-            </span>
             <span className="message">
                 {match ? message.split(emojiRegex).map((part, i) => (
                     <Fragment key={i}>
