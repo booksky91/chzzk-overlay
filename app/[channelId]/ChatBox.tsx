@@ -5,7 +5,6 @@ import {useSearchParams} from "next/navigation"
 import {clsx} from "clsx"
 import useChatList from "../chat/useChatList"
 import ChatRow from "./ChatRow"
-import useNotice from "@/src/hooks/use-notice"
 
 export default function ChatBox({chatChannelId, accessToken}) {
     const searchParams = useSearchParams()
