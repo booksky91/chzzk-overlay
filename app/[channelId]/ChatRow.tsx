@@ -1,22 +1,12 @@
 import {Fragment, memo} from "react"
 import {clsx} from "clsx"
-
-export interface Badge {
-    name: string;
-    src: string;
-}
-
-export interface Chat {
-    uuid: string;
-    emojis: Record<string, string>;
-    order: number;
-    message: string;
-}
+import {nicknameColors} from "../chat/constants"
+import {Chat} from "../chat/types"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 function ChatRow(props: Chat) {
-    const {emojis, order, message} = props
+    const {nickname, badges, color, emojis, order, message} = props
     const match = message.match(emojiRegex)
 
     return (
@@ -33,4 +23,5 @@ function ChatRow(props: Chat) {
         </div>
     )
 }
+
 export default memo(ChatRow)
