@@ -1,26 +1,22 @@
 import {Fragment, memo} from "react"
-import {clsx} from "clsx"
-
-export interface Badge {
-    name: string;
-    src: string;
-}
-
-export interface Chat {
-    uuid: string;
-    emojis: Record<string, string>;
-    order: number;
-    message: string;
-}
+import {nicknameColors} from "../chat/constants"
+import {Chat} from "../chat/types"
 
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 function ChatRow(props: Chat) {
-    const {emojis, order, message} = props
+    const {nickname, badges, color, emojis, message} = props
     const match = message.match(emojiRegex)
 
     return (
-        <div className={clsx(order % 2 === 0 && "even", order % 2 !== 0 && "odd")}>
+        <div data-from={nickname}>
+            <span className="meta" style={{ color: typeof color == "number" ? nicknameColors[color] : color }}>
+                {badges.map((src, i) => (
+                    <img key={i} className="badge" alt="" src={src} />
+                ))}
+                <span className="name">{nickname}</span>
+                <span className="colon">:</span>
+            </span>
             <span className="message">
                 {match ? message.split(emojiRegex).map((part, i) => (
                     <Fragment key={i}>
@@ -33,4 +29,5 @@ function ChatRow(props: Chat) {
         </div>
     )
 }
+
 export default memo(ChatRow)
