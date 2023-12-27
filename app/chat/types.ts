@@ -5,6 +5,7 @@ export interface Chat {
     badges: string[];
     color: number | string;
     emojis: Record<string, string>;
+    order: number;
     message: string;
 }
 
