@@ -5,7 +5,7 @@ import {Chat} from "../chat/types"
 const emojiRegex = /{:([a-zA-Z0-9_]+):}/g
 
 function ChatRow(props: Chat) {
-    const {nickname, badges, color, emojis, message} = props
+    const {nickname, badges, color, emojis, order, message} = props
     const match = message.match(emojiRegex)
 
     return (
