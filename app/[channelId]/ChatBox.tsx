@@ -25,8 +25,6 @@ export default function ChatBox({chatChannelId, accessToken}) {
         }
     }, [handleObsStreamingStarted])
 
-    useNotice()
-
     return (
         <div id="log" className={clsx(small && "small")}>
             {chatList.map((chat) => (
