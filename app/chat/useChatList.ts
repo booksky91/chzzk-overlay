@@ -2,7 +2,7 @@ import {useCallback, useEffect, useRef, useState} from "react"
 import {nicknameColors} from "./constants"
 import {Chat, ChatCmd} from "./types"
 
-export default function useChatList(chatChannelId: string, accessToken: string, maxChatLength: number = 50) {
+export default function useChatList(chatChannelId: string, accessToken: string, chatOrder: number, maxChatLength: number = 50) {
     const isBrowserUnloadingRef = useRef<boolean>(false)
     const lastSetTimestampRef = useRef<number>(0)
     const pendingChatListRef = useRef<Chat[]>([])
@@ -23,6 +23,7 @@ export default function useChatList(chatChannelId: string, accessToken: string, 
             .map(c => c.charCodeAt(0))
             .reduce((a, b) => a + b, 0) % nicknameColors.length
         const emojis = extras?.emojis || {}
+        const order = chatOrder
         const message = raw['msg'] || raw['content'] || ''
         return {
             uid: Math.random().toString(36).substring(2, 12),
@@ -31,6 +32,7 @@ export default function useChatList(chatChannelId: string, accessToken: string, 
             badges,
             color,
             emojis,
+            order,
             message
         }
     }, [])
